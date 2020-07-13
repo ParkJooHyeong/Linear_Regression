@@ -65,8 +65,6 @@ def optimize(w, b, x, y, num_iterations, learning_rate, print_cost=False):
     return params, grads, costs
 
 
-# GRADED FUNCTION: model
-
 def model(x, y, num_iterations=2000, learning_rate=0.5, print_cost=False):
 
     # initialize parameters with zeros
@@ -86,3 +84,4 @@ def model(x, y, num_iterations=2000, learning_rate=0.5, print_cost=False):
          "num_iterations": num_iterations}
 
     return d
+

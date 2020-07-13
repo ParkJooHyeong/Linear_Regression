@@ -2,10 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import functions as func
 
-
-
-x=np.random.rand(100,1)
-y=4+3*x+np.random.randn(100,1)
+x = np.random.rand(1,100)
+y = 4+3*x+np.random.randn(1,100)
 
 # d = func.model(x, y, num_iterations = 1000, learning_rate = 0.02, print_cost = True)
 
