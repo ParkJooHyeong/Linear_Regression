@@ -13,14 +13,14 @@ def initialize_with_zeros(dim):
 
 def propagate(w, b, x, y):
 
-    m = x.shape[0]
+    m = x.shape[1]
 
     # FORWARD PROPAGATION (FROM X TO COST)
-    cost = 0.5 / m * np.sum(pow(np.dot(w.T, x.T) + b - y, 2))
+    cost = 0.5 / m * np.sum(pow(np.dot(w.T, x) + b - y, 2))
 
     # BACKWARD PROPAGATION (TO FIND GRAD)
-    dw = 1 / m * np.dot(x, (np.dot(w.T, x.T) + b - y).T)
-    db = 1 / m * np.sum(np.dot(w.T, x.T) + b - y)
+    dw = 1 / m * np.dot(x, (np.dot(w.T, x) + b - y).T)
+    db = 1 / m * np.sum(np.dot(w.T, x) + b - y)
 
     assert (dw.shape == w.shape)
     assert (db.dtype == float)
@@ -65,13 +65,13 @@ def optimize(w, b, x, y, num_iterations, learning_rate, print_cost=False):
     return params, grads, costs
 
 
-def model(x, y, num_iterations=2000, learning_rate=0.5, print_cost=False):
+def model(x, y, num_iterations, learning_rate, print_cost):
 
     # initialize parameters with zeros
     w, b = initialize_with_zeros(x.shape[1])
 
     # Gradient descent
-    parameters, grads, costs = optimize(w, b, x, y, num_iterations, learning_rate, print_cost=True)
+    parameters, grads, costs = optimize(w, b, x, y, num_iterations, learning_rate, print_cost=print_cost)
 
     # Retrieve parameters w and b from dictionary "parameters"
     w = parameters["w"]
