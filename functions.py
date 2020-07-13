@@ -68,7 +68,7 @@ def optimize(w, b, x, y, num_iterations, learning_rate, print_cost=False):
 def model(x, y, num_iterations, learning_rate, print_cost):
 
     # initialize parameters with zeros
-    w, b = initialize_with_zeros(x.shape[1])
+    w, b = initialize_with_zeros(x.shape[0])
 
     # Gradient descent
     parameters, grads, costs = optimize(w, b, x, y, num_iterations, learning_rate, print_cost=print_cost)
