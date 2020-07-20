@@ -5,5 +5,9 @@ Linear regression을 수행하는 다양한 방법 비교.
 2) Normal Equation을 활용해 linear regression을 수행  
 
 
-## Result
-![Figure_1](https://user-images.githubusercontent.com/67997760/87285928-1e440680-c533-11ea-9ff4-72c5f967ed10.png)
+## Result  
+1) Gradient Descent
+![Figure_1](https://user-images.githubusercontent.com/67997760/87919257-81451880-cab2-11ea-8cd8-a9b66b91bef5.png)   
+
+2) Normal Equation  
+![Figure_2](https://user-images.githubusercontent.com/67997760/87919279-86a26300-cab2-11ea-89c5-8ff6dc22fd8d.png)
