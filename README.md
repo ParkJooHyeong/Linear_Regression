@@ -1,7 +1,9 @@
 # Linear_Regression
-Linear regression using gradient descent
+Linear regression을 수행하는 다양한 방법 비교.
 
-직접 gradient descent algorithm을 구현해 보고 linear regression을 수행.   
+1) Gradient descent algorithm을 구현해 보고 linear regression을 수행.  
+2) Normal Equation을 활용해 linear regression을 수행  
+
 
 ## Result
 ![Figure_1](https://user-images.githubusercontent.com/67997760/87285928-1e440680-c533-11ea-9ff4-72c5f967ed10.png)
