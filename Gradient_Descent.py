@@ -1,20 +1,87 @@
 import numpy as np
-import matplotlib.pyplot as plt
-import functions as func
 
-x = np.random.rand(1,100)
-y = 4+3*x+np.random.randn(1,100)*0.3
 
-d = func.model(x, y, num_iterations = 1000, learning_rate = 0.02, print_cost = True)
+def initialize_with_zeros(dim):
+    w = np.zeros((dim, 1))
+    b = 0
 
-print ("w = " + str(d["w"]))
-print ("b = " + str(d["b"]))
+    assert (w.shape == (dim, 1))
+    assert (isinstance(b, float) or isinstance(b, int))
 
-y_hat = np.dot(np.transpose(d["w"]),x)+d["b"]
-plt.scatter(x, y,label='data')
-plt.plot(np.transpose(x),np.transpose(y_hat), color='red', linewidth=2, label='predicted')
-plt.title('Linear Regression')
-plt.xlabel('x')
-plt.ylabel('y')
-plt.legend()
-plt.show()
+    return w, b
+
+
+def propagate(w, b, x, y):
+
+    m = x.shape[1]
+
+    # FORWARD PROPAGATION (FROM X TO COST)
+    cost = 0.5 / m * np.sum(pow(np.dot(w.T, x) + b - y, 2))
+
+    # BACKWARD PROPAGATION (TO FIND GRAD)
+    dw = 1 / m * np.dot(x, (np.dot(w.T, x) + b - y).T)
+    db = 1 / m * np.sum(np.dot(w.T, x) + b - y)
+
+    assert (dw.shape == w.shape)
+    assert (db.dtype == float)
+    cost = np.squeeze(cost)
+    assert (cost.shape == ())
+
+    grads = {"dw": dw,
+             "db": db}
+
+    return grads, cost
+
+
+def optimize(w, b, x, y, num_iterations, learning_rate, print_cost=False):
+    costs = []
+
+    for i in range(num_iterations):
+
+        # Cost and gradient calculation
+        grads, cost = propagate(w, b, x, y)
+
+        # Retrieve derivatives from grads
+        dw = grads["dw"]
+        db = grads["db"]
+
+        # update rule
+        w = w - dw * learning_rate
+        b = b - db * learning_rate
+
+        # Record the costs
+        costs.append(cost)
+
+        # Print the cost every 100 training iterations
+        if print_cost and i % 100 == 0:
+            print("Cost after iteration %i: %f" % (i, cost))
+
+    params = {"w": w,
+              "b": b}
+
+    grads = {"dw": dw,
+             "db": db}
+
+    return params, grads, costs
+
+
+def model(x, y, num_iterations, learning_rate, print_cost):
+
+    # initialize parameters with zeros
+    w, b = initialize_with_zeros(x.shape[0])
+
+    # Gradient descent
+    parameters, grads, costs = optimize(w, b, x, y, num_iterations, learning_rate, print_cost=print_cost)
+
+    # Retrieve parameters w and b from dictionary "parameters"
+    w = parameters["w"]
+    b = parameters["b"]
+
+    d = {"costs": costs,
+         "w": w,
+         "b": b,
+         "learning_rate": learning_rate,
+         "num_iterations": num_iterations}
+
+    return d
+
